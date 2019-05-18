@@ -23,8 +23,7 @@ public class CheckUsernameServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
-		username = username.trim();
-		username = username.replaceAll(" ", "");
+		username = username.replaceAll("\\s*", "");
 		UserDao userDao = new UserDaoImpl();
 		User user = userDao.findByUsername(username);
 		resp.setContentType("application/json;charset=utf-8");

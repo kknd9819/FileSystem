@@ -27,8 +27,7 @@ public class RegisterServlet extends HttpServlet{
 		Map<String,String> map = new HashMap<>();
 		
 		String username = req.getParameter("username");
-		username = username.trim();
-		username = username.replaceAll(" ", "");
+		username = username.replaceAll("\\s*", "");
 		String password = req.getParameter("password");
 		int count = 0;
 		
