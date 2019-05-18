@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册</title>
+<style>
+	span{color:red}
+</style>
+</head>
+<body>
+	<h2>用户名必须是班级名称加姓名，例如：1806张三，不符合要求者0分</h2>
+	<table>
+		<tr>
+			<td>
+				用户名:
+			</td>
+			<td>
+				<input type="text" id="username">
+				<span id="username_msg"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				密码:
+			</td>
+			<td>
+				<input type="password" id="pwd">
+				<span id="pwd_msg"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				确认密码:
+			</td>
+			<td>
+				<input type="password" id="pwd2">
+				<span id="pwd2_msg"></span>
+			</td>
+		</tr>
+		<tr><td></td><td><button id="sub" disabled="disabled">提交</button></td></tr>
+	</table>
+	<script src="static/js/jquery1.12.4.min.js"></script>
+	<script>
+		$(function(){
+			var username = $("#username");
+			var username_msg = $("#username_msg");
+			var pwd = $("#pwd");
+			var pwd_msg = $("#pwd_msg");
+			var pwd2 = $("#pwd2");
+			var pwd2_msg = $("#pwd2_msg");
+			var sub = $("#sub");
+			
+			
+			pwd.blur(function(){
+				if(pwd.val() != ""){
+					if(pwd.val() != pwd2.val()){
+						pwd_msg.html("两次密码不一样");
+						sub.attr("disabled","disabled");
+					} else {
+						pwd_msg.html("");
+						sub.removeAttr("disabled");
+					}
+				} else {
+					pwd_msg.html("密码不能为空");
+					sub.attr("disabled","disabled");
+				}
+			});
+			
+			
+			pwd2.blur(function(){
+				if(pwd2.val() != ""){
+					if(pwd.val() != pwd2.val()){
+						pwd2_msg.html("两次密码不一样");
+						sub.attr("disabled","disabled");
+					} else {
+						pwd2_msg.html("");
+						sub.removeAttr("disabled");
+					}
+				} else {
+					pwd2_msg.html("确认密码不能为空");
+					sub.attr("disabled","disabled");
+				}
+				
+			});
+			
+			username.blur(function(){
+				if(username.val() != ""){
+					$.get('/FileSystem/checkUsername',{username:username.val()},function(data){
+						if(data.msg == 'SUCCESS'){
+							username_msg.html("");
+							sub.removeAttr("disabled");
+						} else {
+							username_msg.html("用户名已被使用");
+							sub.attr("disabled","disabled");
+						}
+					});
+				} else {
+					username_msg.html("用户名不能 为空");
+					sub.attr("disabled","disabled");
+				}
+				
+			});
+			
+			sub.click(function(){
+				$.post('/FileSystem/register',{username:username.val(),password:pwd.val()},function(data){
+					if(data.msg=='SUCCESS'){
+						alert(username.val()+"注册成功");
+						window.location.reload();
+					} else {
+						alert("注册失败");
+						window.location.reload();
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
