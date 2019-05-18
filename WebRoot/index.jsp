@@ -23,12 +23,14 @@
 <title>文件列表页</title>
 <style>
 	td{text-align:center;}
+	span{color:red;}
 </style>
 </head>
 <body>
 	<form action="${pageContext.request.contextPath }/upload" method="post" enctype="multipart/form-data">
 		文件上传:<input type="file" id="file" name="file">
 		<button type="button" id="btn">提交</button>
+		<span>注：压缩包的命名叫自己的名字! 例如:张三.zip</span>
 	</form>
 	<!-- 获取文件列表 -->
 	<table border="1" cellspacing="0" width="100%">
