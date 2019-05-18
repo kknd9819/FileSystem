@@ -10,9 +10,20 @@
 	<form action="${pageContext.request.contextPath}/login" method="post">
 	<fieldset>
 		<legend>用户登陆</legend>
-		用户名:<input type="text" name="username"><br>
-		密 码:<input type="password" name="password"><br>
-		<span style="color:red">${error_msg}</span><br>
+		<table>
+			<tr>
+				<td>用户名:</td>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr>
+				<td>密  码:</td>
+				<td>
+				<input type="password" name="password">
+				<span style="color:red">${error_msg}</span>
+				</td>
+			</tr>
+		</table>
+		
 		<input type="submit" value="提交">
 	</fieldset>
 	</form>

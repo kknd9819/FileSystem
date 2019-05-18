@@ -14,7 +14,7 @@ create table `t_upload` (
  `upload_time` datetime not null,
  `username` varchar(24) not null,
  `original_name` varchar(64) not null,
- `uudi_name` varchar(64) not null,
+ `uuid_name` varchar(64) not null,
  `absolute_path` varchar(164) not null,
  key `idx_username`(`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

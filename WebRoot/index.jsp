@@ -21,6 +21,9 @@
 <head>
 <meta charset="UTF-8">
 <title>文件列表页</title>
+<style>
+	td{text-align:center;}
+</style>
 </head>
 <body>
 	<form action="${pageContext.request.contextPath }/upload" method="post" enctype="multipart/form-data">

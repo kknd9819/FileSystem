@@ -25,7 +25,6 @@
 			</td>
 			<td>
 				<input type="password" id="pwd">
-				<span id="pwd_msg"></span>
 			</td>
 		</tr>
 		<tr>
@@ -49,20 +48,23 @@
 			var pwd2 = $("#pwd2");
 			var pwd2_msg = $("#pwd2_msg");
 			var sub = $("#sub");
+			var userNameFlag = false;
 			
 			
 			pwd.blur(function(){
-				if(pwd.val() != ""){
+				if(pwd.val() == ""){
+					pwd2_msg.html("密码不能为空");
+					sub.attr("disabled","disabled");
+				} else {
 					if(pwd.val() != pwd2.val()){
-						pwd_msg.html("两次密码不一样");
+						pwd2_msg.html("两次密码不一样");
 						sub.attr("disabled","disabled");
 					} else {
-						pwd_msg.html("");
-						sub.removeAttr("disabled");
+						pwd2_msg.html("");
+						if(userNameFlag && pwd.val() == pwd2.val()){
+							sub.removeAttr("disabled");
+						}
 					}
-				} else {
-					pwd_msg.html("密码不能为空");
-					sub.attr("disabled","disabled");
 				}
 			});
 			
@@ -71,14 +73,17 @@
 				if(pwd2.val() != ""){
 					if(pwd.val() != pwd2.val()){
 						pwd2_msg.html("两次密码不一样");
-						sub.attr("disabled","disabled");
+						sub.attr("disabled","disabled");	
 					} else {
 						pwd2_msg.html("");
-						sub.removeAttr("disabled");
+						if(userNameFlag && pwd.val() == pwd2.val()){
+							sub.removeAttr("disabled");
+						}
 					}
 				} else {
 					pwd2_msg.html("确认密码不能为空");
 					sub.attr("disabled","disabled");
+					pwd2Flag = false;
 				}
 				
 			});
@@ -88,15 +93,17 @@
 					$.get('/FileSystem/checkUsername',{username:username.val()},function(data){
 						if(data.msg == 'SUCCESS'){
 							username_msg.html("");
-							sub.removeAttr("disabled");
+							userNameFlag = true;
 						} else {
 							username_msg.html("用户名已被使用");
 							sub.attr("disabled","disabled");
+							userNameFlag = false;
 						}
 					});
 				} else {
 					username_msg.html("用户名不能 为空");
 					sub.attr("disabled","disabled");
+					userNameFlag = false;
 				}
 				
 			});
