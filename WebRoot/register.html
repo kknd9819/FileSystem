@@ -87,9 +87,10 @@
 				
 			});
 			
+			//异步  同步
 			username.blur(function(){
 				if(username.val() != ""){
-					$.get('/FileSystem/checkUsername',{username:username.val()},function(data){
+					$.get('/FileSystem/checkUsername',{username : username.val()},function(data){
 						if(data.msg == 'SUCCESS'){
 							username_msg.html("");
 							userNameFlag = true;
